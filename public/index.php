@@ -27,16 +27,26 @@
             <h2>$ <?= "$dolar" ?></h2>
         </div>
         <div class="conversor-div">
-            <form action="./results.php" method="post">
+            <?php 
+            //Capturando valor digitado pelo usuário
+            $real = (float) $_POST['real'] ?? 00.00;
+            //Convertendo para dólar e formatando
+                $novoValor = (float) ($real / $dolar);
+                $valorFormatado = number_format($novoValor, 2, ",", ".");
+                //Mensagem dólar
+                $msg = $valorFormatado ??'$ 00,00';
+            ?>
+
+            <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
                 <div>
                     <div class="div-input">
                         <label for="real">BRL</label>
-                        <input name="real" type="text" placeholder="R$ 00,00">
+                        <input name="real" type="text" placeholder="R$ 00,00" value="<?= $real ?>">
                     </div>
                     <span class="span">=</span>
                     <div class="div-results">
                         <label>USD</label>
-                        <span>$ 00,00</span>
+                        <span><?= "$msg"?></span>
                     </div>
                 </div>
                 <input class="input" type="submit" value="Converter">  
